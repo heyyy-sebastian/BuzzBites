@@ -15,7 +15,10 @@ Our development team used a variety of technologies to create this full stack ap
 
 
 Humble beginnings
-[Column PIC] [ERD PIC] [Wireframe PIC]
+![image](assets/images/erd.jpg)
+![image](assets/images/brainstorming.jpg)
+![image](assets/images/wireframe.jpg)
+![image](assets/images/wireframe2.jpg)
 
 
 Before you go, we want you to know that our team had lots of fun working on this app, and we hope you have lots of fun using it.
