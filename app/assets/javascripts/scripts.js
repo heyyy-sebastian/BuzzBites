@@ -4,7 +4,7 @@ $(document).ready(function() {
   // Form variables
   var displayData = $("div#displayData");
   var buttonZS = $("button#zip-search");
-  var formZipCode = $('#zip-search');
+  var formZipCode = $('input#zip-search');
   // Foursquare credentials and other queries, submitted with each API request
   // googlemaps_api_key: AIzaSyDPMSlU4RW9QMz8ceTsBbBevwtLJvOLDAQ
   // foursquare_client_id: DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM
@@ -71,9 +71,9 @@ $(document).ready(function() {
   }
   // List of trending restaurants from zipcode submitted by user
   buttonZS.click(function() {
+    console.log("Button pressed");
     displayData.empty();
     zipCode = formZipCode.val();
-
     if (zipCode != "") {
       $.ajax({
         method: "GET",
@@ -85,9 +85,10 @@ $(document).ready(function() {
 
           $.ajax({
             method: "GET",
-            url: "https://api.foursquare.com/v2/venues/explore?client_id"+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
+            url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
             success: function(data){
               var results = data["response"]["groups"][0]["items"];
+              console.log("Test");
               var x = 0, y = results.length - 1;
 
               for (x; x < y; x++) {
