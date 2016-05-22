@@ -52,7 +52,6 @@ $(document).ready(function() {
           }
         }
         restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
-        console.log(restaurantsSorted);
         for (x = 0; x < y; x++) {
           displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+"</div></li>");
         }
