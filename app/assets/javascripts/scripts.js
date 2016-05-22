@@ -2,14 +2,10 @@
 
 $(document).ready(function() {
   // Form variables
-  var displayData = $("div#displayData");
+  var displayData = $("ul#displayData");
   var buttonZS = $("button#zip-search");
   var formZipCode = $('input#zip-search');
   // Foursquare credentials and other queries, submitted with each API request
-  // googlemaps_api_key: AIzaSyDPMSlU4RW9QMz8ceTsBbBevwtLJvOLDAQ
-  // foursquare_client_id: DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM
-  // foursquare_client_secret: IWDFK4DSEJSL1UVNEJEHYEQL12VQUFAYIAQYT51T13EET0ZD
-
   var client_id = "DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM";
   var client_secret = "IWDFK4DSEJSL1UVNEJEHYEQL12VQUFAYIAQYT51T13EET0ZD";
   var section = "section=trending";
@@ -46,7 +42,6 @@ $(document).ready(function() {
       url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
       success: function(data){
         var results = data["response"]["groups"][0]["items"];
-        // console.log(results);
         var x = 0, y = results.length - 1;
         for (x; x < y; x++) {
           foursquare_data_venueName = results[x]["venue"]["name"];
@@ -54,18 +49,13 @@ $(document).ready(function() {
           foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
           if (foursquare_data_venueType.match(restSearch)) {
             restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins };
-            displayData.append("<p>"+foursquare_data_venueName+"</p>");
           }
         }
         restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
-        // console.log(restaurantsSorted);
-
-        // for (var eachObj in restaurantsSorted) {
-        //   // console.log(eachObj)
-        //   // for (var rest in eachObj) {
-        //   //   displayData.append("<p>"+rest+"</p>");
-        //   // }
-        // }
+        console.log(restaurantsSorted);
+        for (x = 0; x < y; x++) {
+          displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+"</div></li>");
+        }
       }
     });
   }
@@ -97,14 +87,20 @@ $(document).ready(function() {
                 foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
                 if (foursquare_data_venueType.match(restSearch)) {
                   restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins };
-                  displayData.append("<p>"+foursquare_data_venueName+"</p>");
                 }
               }
               restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
+              for (x; x < y; x++) {
+                displayData.append("<p>"+restaurantsSorted[x]["name"]+"</p>");
+              }
             }
           });
         }
       });
     }
   });
+
+  $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
 });
