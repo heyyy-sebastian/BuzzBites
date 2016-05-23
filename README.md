@@ -15,10 +15,10 @@ Our development team used a variety of technologies to create this full stack ap
 
 
 Humble beginnings
-![image](assets/images/erd.jpg)
-![image](assets/images/brainstorming.jpg)
-![image](assets/images/wireframe.jpg)
-![image](assets/images/wireframe2.jpg)
+![ERD](https://raw.githubusercontent.com/dpatuwo/BuzzBites/foursquare_restaurants/app/assets/images/erd.jpg)
+![Brainstorming](https://raw.githubusercontent.com/dpatuwo/BuzzBites/foursquare_restaurants/app/assets/images/brainstorming.jpg)
+![Wireframe 1](https://raw.githubusercontent.com/dpatuwo/BuzzBites/foursquare_restaurants/app/assets/images/wireframe.jpg)
+![Wireframe 2](https://raw.githubusercontent.com/dpatuwo/BuzzBites/foursquare_restaurants/app/assets/images/wireframe2.jpg)
 
 
 Before you go, we want you to know that our team had lots of fun working on this app, and we hope you have lots of fun using it.
