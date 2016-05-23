@@ -9,8 +9,33 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 </head>
 <body>
+  <nav class="orange">
+    <div class="navbar-wrapper container">
+      <a href="/" class="brand-logo">BuzzBites</a>
+      <ul class="right">
+        <li><a href="#">Sign Up</a></li>
+        <li><a href="#">Log In</a></li>
+      </ul>
+    </div>
+  </nav>
 
 <%= yield %>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About this site</h5>
+          <p class="white-text">Want to eat what everyone else is eating? See what everyone else is posting? Let BuzzBites guide you to your next selfie!</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        Copyright &copy; 2016 BuzzBites | Mekesia Brown | Reggie Kim | Victor Lin | David Patuwo
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>
