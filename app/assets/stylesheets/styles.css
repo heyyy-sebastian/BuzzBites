@@ -62,13 +62,13 @@ div#centerThis {
   width: 65%;
 }
 
-
 div.collapsible-body {
   text-align: left;
   padding: 0 10%;
 }
 
-div#userForm {
+div#userSignUp {
   width: 35%;
   margin: auto;
+  display: none;
 }

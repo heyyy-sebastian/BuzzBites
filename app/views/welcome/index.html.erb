@@ -4,14 +4,20 @@
   <ul id="displayData" class="collapsible" data-collapsible="accordion"></ul>
 </div>
 <br><br>
-<div id="userForm">
+<div id="userSignUp">
   <br><br>
   <%= form_for :user, method: 'post', url: {action: "create"} do |f| %>
     <%= label(:user, :name) %>
-    <%= f.text_field :name %><br>
+    <%= f.text_field :name %>
     <%= label(:user, :email) %>
     <%= f.text_field :email %>
+    <%= label(:user, :username) %>
+    <%= f.text_field :username %>
+    <%= label(:user, :password) %>
+    <%= f.text_field :password %>
+    <%= label(:user, :password_confirmation) %>
+    <%= f.text_field :password_confirmation %>
     <br><br>
-    <%= f.submit "Submit" %>
+    <%= f.submit "Sign up" %>
   <% end %>
 </div>
