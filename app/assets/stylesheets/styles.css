@@ -51,10 +51,9 @@ table {
 
 input#zip-search {
   border: 1px solid grey;
-  width: 2em;
+  width: 100px;
   height: 2em;
   margin: auto;
-  padding-left: 10%;
 }
 
 div#centerThis {
@@ -67,4 +66,9 @@ div#centerThis {
 div.collapsible-body {
   text-align: left;
   padding: 0 10%;
+}
+
+div#userForm {
+  width: 35%;
+  margin: auto;
 }

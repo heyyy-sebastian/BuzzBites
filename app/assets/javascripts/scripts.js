@@ -42,8 +42,8 @@ $(document).ready(function() {
       url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
       success: function(data){
         var results = data["response"]["groups"][0]["items"];
-        var x = 0, y = results.length - 1;
-        for (x; x < y; x++) {
+        var x, y = results.length - 1;
+        for (x = 0; x < y; x++) {
           foursquare_data_venueName = results[x]["venue"]["name"];
           foursquare_data_venueType = results[x]["venue"]["categories"][0]["name"];
           foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
@@ -60,7 +60,6 @@ $(document).ready(function() {
   }
   // List of trending restaurants from zipcode submitted by user
   buttonZS.click(function() {
-    console.log("Button pressed");
     displayData.empty();
     zipCode = formZipCode.val();
     if (zipCode != "") {
@@ -77,10 +76,9 @@ $(document).ready(function() {
             url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
             success: function(data){
               var results = data["response"]["groups"][0]["items"];
-              console.log("Test");
-              var x = 0, y = results.length - 1;
+              var x, y = results.length - 1;
 
-              for (x; x < y; x++) {
+              for (x = 0; x < y; x++) {
                 foursquare_data_venueName = results[x]["venue"]["name"];
                 foursquare_data_venueType = results[x]["venue"]["categories"][0]["name"];
                 foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
@@ -89,7 +87,7 @@ $(document).ready(function() {
                 }
               }
               restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
-              for (x; x < y; x++) {
+              for (x = 0; x < y; x++) {
                 displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+"</div></li>");
               }
             }
