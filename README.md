@@ -14,7 +14,7 @@ Our development team used a variety of technologies to create this full stack ap
 - Agile approach for meetings
 
 
-Humble beginnings
+Check out pics of our humble beginnings
 ![ERD](https://raw.githubusercontent.com/dpatuwo/BuzzBites/foursquare_restaurants/app/assets/images/erd.jpg)
 ![Brainstorming](https://raw.githubusercontent.com/dpatuwo/BuzzBites/foursquare_restaurants/app/assets/images/brainstorming.jpg)
 ![Wireframe 1](https://raw.githubusercontent.com/dpatuwo/BuzzBites/foursquare_restaurants/app/assets/images/wireframe.jpg)
