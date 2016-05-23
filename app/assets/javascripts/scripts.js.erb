@@ -1,13 +1,11 @@
 "use strict";
 
 $(document).ready(function() {
+
   // Form variables
   var displayData = $("ul#displayData");
   var buttonZS = $("button#zip-search");
   var formZipCode = $('input#zip-search');
-  // Foursquare credentials and other queries, submitted with each API request
-  var client_id = "DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM";
-  var client_secret = "IWDFK4DSEJSL1UVNEJEHYEQL12VQUFAYIAQYT51T13EET0ZD";
   var section = "section=trending";
   var opennow = "openNow=1";
   //var datatype = "&m=foursquare";
@@ -20,7 +18,18 @@ $(document).ready(function() {
   var zipCode = "";
   var restSearch = /Restaurant/; // RegEx pattern
   var myLatitude = "", myLongitude = "", lat_lot = "";
-  var mapsApi = "AIzaSyDPMSlU4RW9QMz8ceTsBbBevwtLJvOLDAQ";
+  //API keys
+  var mapsApi = "<%= ENV['googlemaps_api_key'] %>";
+  var client_id = "<%= ENV['foursquare_client_id'] %>";
+  var client_secret = "<%= ENV['foursquare_client_secret'] %>";
+  var igAccessToken = "<%= ENV['instagram_access_token'] %>";
+  var igClientId = "<%= ENV['instagram_client_id'] %>";
+  var igClientSecret = "<%= ENV['instagram_client_secret'] %>";
+  var twitterConsumerKey = "<%= ENV['twitter_consumer_key'] %>";
+  var twitterConsumerSecret = "<%= ENV['twitter_consumer_secret'] %>";
+  var twitterAccessToken = "<%= ENV['twitter_access_token'] %>";
+  var twitterAccessTokenSecret = "<%= ENV['twitter_access_token_secret'] %>";
+
 
   // This function finds the current location loaded from browser data
   var getLocation = function() {
@@ -101,3 +110,4 @@ $(document).ready(function() {
       accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
 });
+
