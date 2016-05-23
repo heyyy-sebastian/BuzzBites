@@ -11,12 +11,12 @@ $(document).ready(function() {
   var section = "section=trending";
   var opennow = "openNow=1";
   //var datatype = "&m=foursquare";
-  //var limit = "limit=30";
+  // var limit = "limit=5";
+  // var offset = "offset=", offsetNum = 0;
   var query = "query=restaurants";
   var version = "v=20160821";
   // Variables where the data will be stored/handled
   var foursquare_data_venueName = "", foursquare_data_venueType = "", foursquare_data_venueCheckins = 0;
-  var restaurantsSorted = [];
   var zipCode = "";
   var restSearch = /Restaurant/; // RegEx pattern
   var myLatitude = "", myLongitude = "", lat_lot = "";
@@ -42,7 +42,7 @@ $(document).ready(function() {
       url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
       success: function(data){
         var results = data["response"]["groups"][0]["items"];
-        var x, y = results.length - 1;
+        var x, y = results.length - 1, restaurantsSorted = [];
         for (x = 0; x < y; x++) {
           foursquare_data_venueName = results[x]["venue"]["name"];
           foursquare_data_venueType = results[x]["venue"]["categories"][0]["name"];
@@ -76,7 +76,7 @@ $(document).ready(function() {
             url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
             success: function(data){
               var results = data["response"]["groups"][0]["items"];
-              var x, y = results.length - 1;
+              var x, y = results.length - 1, restaurantsSorted = [];
 
               for (x = 0; x < y; x++) {
                 foursquare_data_venueName = results[x]["venue"]["name"];
