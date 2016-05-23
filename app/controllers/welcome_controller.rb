@@ -6,4 +6,16 @@ class WelcomeController < ApplicationController
     myLongitude = data['results'][0]['geometry']['location']['lng'];
     myLatitude = data['results'][0]['geometry']['location']['lat'];
   end
+
+  def create
+    user = params['user']
+    User.create(name: user['name'], email: user['email'])
+    BuzzbitesMailer.buzzbites_welcome(user['email']).deliver_now
+    redirect_to(:back)
+  end
+
+  def destroy
+    User.destroy(params['id'])
+    redirect_to(:back)
+  end
 end

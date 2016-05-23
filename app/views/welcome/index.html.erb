@@ -3,3 +3,15 @@
 <div id="centerThis">
   <ul id="displayData" class="collapsible" data-collapsible="expandable"></ul>
 </div>
+<br><br>
+<div id="userForm">
+  <br><br>
+  <%= form_for :user, method: 'post', url: {action: "create"} do |f| %>
+    <%= label(:user, :name) %>
+    <%= f.text_field :name %><br>
+    <%= label(:user, :email) %>
+    <%= f.text_field :email %>
+    <br><br>
+    <%= f.submit "Submit" %>
+  <% end %>
+</div>
