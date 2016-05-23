@@ -30,6 +30,11 @@ $(document).ready(function() {
   var twitterAccessToken = "<%= ENV['twitter_access_token'] %>";
   var twitterAccessTokenSecret = "<%= ENV['twitter_access_token_secret'] %>";
 
+  $("#scroll-top").click(function() {
+    $('html, body').animate({
+        scrollTop: $(".navbar-wrapper").offset().top
+    }, 500);
+  });
 
   // This function finds the current location loaded from browser data
   var getLocation = function() {
