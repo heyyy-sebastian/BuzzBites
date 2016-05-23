@@ -23,4 +23,4 @@ Check out pics of our humble beginnings
 
 Before you go, we want you to know that our team had lots of fun working on this app, and we hope you have lots of fun using it.
 
-<3 Mekesia (@Githubbubber), Reggie (@ReggieKim), Victor (@Koipondkeepers) and David (@DPatuwo)
+<3 Mekesia (![@Githubbubber](https://github.com/Githubbubber)), Reggie (![@ReggieKim](https://github.com/reggiekim)), Victor (![@Koipondkeepers](https://github.com/koipondkeepers)) and David (![@DPatuwo](https://github.com/dpatuwo))
