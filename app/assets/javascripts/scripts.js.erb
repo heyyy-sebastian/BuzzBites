@@ -15,9 +15,10 @@ $(document).ready(function() {
   var version = "v=20160821";
   // Variables where the data will be stored/handled
   var foursquare_data_venueName = "", foursquare_data_venueType = "", foursquare_data_venueCheckins = 0;
+  var foursquare_data_venueAddress = [], foursquare_data_venuePhoneNumber = "", foursquare_data_venueLatLong = "";
   var zipCode = "";
   var restSearch = /Restaurant/; // RegEx pattern
-  var myLatitude = "", myLongitude = "", lat_lot = "";
+  var myLatitude = "", myLongitude = "", lat_long = "";
   //API keys
   var mapsApi = "<%= ENV['googlemaps_api_key'] %>";
   var client_id = "<%= ENV['foursquare_client_id'] %>";
@@ -49,11 +50,11 @@ $(document).ready(function() {
     myLatitude = position.coords.latitude;
     myLongitude = position.coords.longitude;
 
-    lat_lot = "ll="+myLatitude+","+myLongitude;
+    lat_long = "ll="+myLatitude+","+myLongitude;
 
     $.ajax({
       method: "GET",
-      url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
+      url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_long,
       success: function(data){
         var results = data["response"]["groups"][0]["items"];
         var x, y = results.length - 1, restaurantsSorted = [];
@@ -61,13 +62,28 @@ $(document).ready(function() {
           foursquare_data_venueName = results[x]["venue"]["name"];
           foursquare_data_venueType = results[x]["venue"]["categories"][0]["name"];
           foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
+          foursquare_data_venueAddress = [results[x]["venue"]["location"]["formattedAddress"][0], results[x]["venue"]["location"]["formattedAddress"][1]];
+          foursquare_data_venuePhoneNumber = results[x]["venue"]["contact"]["formattedPhone"];
+          foursquare_data_venueLatLong = [results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"]];
+
           if (foursquare_data_venueType.match(restSearch)) {
-            restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins };
+            restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
+                                    "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhoneNumber,
+                                    "lat_long" : foursquare_data_venueLatLong};
+            // console.log((x+1) + ": " + foursquare_data_venueName);
+            // console.log("Check in #:" + foursquare_data_venueCheckins);
+            // console.log("Address: " + foursquare_data_venueAddress[0]);
+            // console.log(foursquare_data_venueAddress[1]);
+            // console.log("Phone number: " + foursquare_data_venuePhoneNumber);
+            // console.log("Latitude/longitude: "+foursquare_data_venueLatLong[0] + ", " + foursquare_data_venueLatLong[1]);
           }
         }
         restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
         for (x = 0; x < y; x++) {
-          displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+"</div></li>");
+          displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div>"+
+                                  "<div class='collapsible-body'>"+restaurantsSorted[x]["address"][0]+
+                                  "<br />"+ restaurantsSorted[x]["address"][1]+"<br />"+
+                                  restaurantsSorted[x]["phone"] +"</div></li>");
         }
       }
     });
@@ -83,11 +99,11 @@ $(document).ready(function() {
         success: function(data){
           myLongitude = data['results'][0]['geometry']['location']['lng'];
           myLatitude = data['results'][0]['geometry']['location']['lat'];
-          lat_lot = "ll="+myLatitude+","+myLongitude; // Store the lat and lon info for
+          lat_long = "ll="+myLatitude+","+myLongitude; // Store the lat and lon info for
 
           $.ajax({
             method: "GET",
-            url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
+            url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_long,
             success: function(data){
               var results = data["response"]["groups"][0]["items"];
               var x, y = results.length - 1, restaurantsSorted = [];
@@ -96,13 +112,28 @@ $(document).ready(function() {
                 foursquare_data_venueName = results[x]["venue"]["name"];
                 foursquare_data_venueType = results[x]["venue"]["categories"][0]["name"];
                 foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
+                foursquare_data_venueAddress = [results[x]["venue"]["location"]["formattedAddress"][0], results[x]["venue"]["location"]["formattedAddress"][1]];
+                foursquare_data_venuePhoneNumber = results[x]["venue"]["contact"]["formattedPhone"];
+                foursquare_data_venueLatLong = [results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"]];
+
                 if (foursquare_data_venueType.match(restSearch)) {
-                  restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins };
+                  restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
+                                          "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhoneNumber,
+                                          "lat_long" : foursquare_data_venueLatLong};
+                  // console.log((x+1) + ": " + foursquare_data_venueName);
+                  // console.log("Check in #:" + foursquare_data_venueCheckins);
+                  // console.log("Address: " + foursquare_data_venueAddress[0]);
+                  // console.log(foursquare_data_venueAddress[1]);
+                  // console.log("Phone number: " + foursquare_data_venuePhoneNumber);
+                  // console.log("Latitude/longitude: "+foursquare_data_venueLatLong[0] + ", " + foursquare_data_venueLatLong[1]);
                 }
               }
               restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
               for (x = 0; x < y; x++) {
-                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+"</div></li>");
+                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div>"+
+                                        "<div class='collapsible-body'>"+restaurantsSorted[x]["address"][0]+
+                                        "<br />"+ restaurantsSorted[x]["address"][1]+"<br />"+
+                                        restaurantsSorted[x]["phone"] +"</div></li>");
               }
             }
           });
