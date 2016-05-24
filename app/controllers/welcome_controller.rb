@@ -6,16 +6,19 @@ class WelcomeController < ApplicationController
   def create
     byebug
     if params['password'] == params['password_confirmation']
-      newUser = User.create(name: params['name'], email: params['email'], username: params['username'], password: params['password'], loginnum: 1)
-      # newUser = User.create(user_params)
-      if newUser
-        # format.html { redirect_to @user, notice: 'You are now a member!' }
-        # format.json { render :index, status: :created, location: @user }
-        BuzzbitesMailer.buzzbites_welcome(params['email']).deliver_now
-      else
-        format.html { render :index }
-        # format.json { render json: @user.errors, status: :unprocessable_entity }
-        # render "Incorrect information"
+      if is_password?(password)
+        newUser = User.create(name: params['name'], email: params['email'], username: params['username'], password: params['password'], loginnum: 1)
+        # newUser = User.create(user_params)
+        if newUser
+          # format.html { redirect_to @user, notice: 'You are now a member!' }
+          # format.json { render :index, status: :created, location: @user }
+          session["id"] = newUser["id"]
+          BuzzbitesMailer.buzzbites_welcome(params['email']).deliver_now
+        else
+          format.html { render :index }
+          # format.json { render json: @user.errors, status: :unprocessable_entity }
+          # render "Incorrect information"
+        end
       end
     end
     redirect_to(:back)
@@ -38,10 +41,10 @@ class WelcomeController < ApplicationController
     end
   end
 
-  # def logout
-  #     session.delete("id")
-  #     redirect_to "/"
-  # end
+  def logout
+      session.delete("id")
+      redirect_to "/"
+  end
 
   private
     def user_params
