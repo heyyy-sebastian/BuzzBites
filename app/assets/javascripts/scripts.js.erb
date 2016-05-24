@@ -93,10 +93,11 @@ $(document).ready(function() {
 
 // *Start of loop two* Appending the restaurants and its info to the page's accordion
         for (x = 0; x < y; x++) {
-          displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+
-            "</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+
-            "</div></li>");
-        }
+                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
+                  "</div><div class='collapsible-body'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
+                  restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
+                  "</div></li>");
+              }
 // End of loop two
       }
     });
@@ -146,8 +147,9 @@ $(document).ready(function() {
 
 // *Start of loop two* Appending the restaurants and its info to the page's accordion
               for (x = 0; x < y; x++) {
-                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+
-                  "</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+
+                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
+                  "</div><div class='collapsible-body'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
+                  restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
                   "</div></li>");
               }
 // *End of loop two*
