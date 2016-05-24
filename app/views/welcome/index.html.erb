@@ -6,28 +6,28 @@
 <br><br>
 <div id="userSignUp">
   <br><br>
-  <%= form_for @user, method: 'post', url: {action: "create"} do |f| %>
-    <% if @user.errors.any? %>
-      <div>
-        <h2>Form is invalid</h2>
-        <ul>
-          <% for message in @user.errors.full_messages %>
-          <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <%= label(:user, :name) %>
-    <%= f.text_field :name %>
-    <%= label(:user, :email) %>
-    <%= f.text_field :email %>
-    <%= label(:user, :username) %>
-    <%= f.text_field :username %>
-    <%= label(:user, :password) %>
-    <%= f.password_field :password %>
-    <%= label(:user, :password_confirmation) %>
-    <%= f.password_field :password_confirmation %>
-    <br><br>
-    <%= f.submit "Sign up" %>
+  <%= form_tag("/welcome", method: "create") do %>
+    <%= label_tag(:name, "Name:") %>
+    <%= text_field_tag(:name) %>
+    <%= label_tag(:email, "Email:") %>
+    <%= text_field_tag(:email) %>
+    <%= label_tag(:username, "Username:") %>
+    <%= text_field_tag(:username) %>
+    <%= label_tag(:password, "Password:") %>
+    <%= password_field_tag(:password) %>
+    <%= label_tag(:password_confirmation, "Confirm Password:") %>
+    <%= password_field_tag(:password_confirmation) %>
+    <%= submit_tag("Sign Up") %>
+  <% end %>
+</div>
+
+<div id="userLogin">
+  <br><br>
+  <%= form_tag(welcome_login_path, method: "patch") do %>
+    <%= label_tag(:username, "Username:") %>
+    <%= text_field_tag(:username) %>
+    <%= label_tag(:password, "Password:") %>
+    <%= password_field_tag(:password) %>
+    <%= submit_tag("Log in") %>
   <% end %>
 </div>

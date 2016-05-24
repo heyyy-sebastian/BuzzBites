@@ -3,12 +3,15 @@ $(document).ready(function() {
   var signUpClick = $("li#signUpClick");
   var loginClick = $("li#loginClick");
   var divUserSignUp = $("div#userSignUp");
+  var divUserLogin = $("div#userLogin");
 
   signUpClick.click(function() {
-    divUserSignUp.toggle();
+    divUserSignUp.show("fast");
+    divUserLogin.hide("fast");
   });
 
   loginClick.click(function() {
-    alert("To be coded soon");
+    divUserSignUp.hide("fast");
+    divUserLogin.show("fast");
   });
 });

@@ -72,3 +72,9 @@ div#userSignUp {
   margin: auto;
   display: none;
 }
+
+div#userLogin {
+  width: 35%;
+  margin: auto;
+  display: none;
+}
