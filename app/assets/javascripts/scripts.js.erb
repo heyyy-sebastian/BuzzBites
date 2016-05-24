@@ -59,7 +59,7 @@ $(document).ready(function() {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
       } else { console.log('Geolocation is not supported or allowed for this Browser'); }
-  }();
+  }();//getLocation
 
 
   // This function finds a list of nearby checked-in restaurants FourSquare's API based on longitude and latitude
@@ -70,36 +70,61 @@ $(document).ready(function() {
             "&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
       success: function(data){            // Foursquare data received! Let's store it
         var results = data["response"]["groups"][0]["items"];
-        var x, y = results.length - 1, restaurantsSorted = [];  // Used for loops/storage
+        var y = results.length - 1,
+            restaurantsSorted = [], // Used for loops/storage
+            restaurantList = [];
+
+
   // *Start of loop one* Here every Foursquare result is looped through to grab only what we want
-        for (x = 0; x < y; x++) {
-          foursquare_data_venueName =     results[x]["venue"]["name"];
-          foursquare_data_venueType =     results[x]["venue"]["categories"][0]["name"];
-          foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
-          foursquare_data_venueAddress =[ results[x]["venue"]["location"]["formattedAddress"][0],
-                                          results[x]["venue"]["location"]["formattedAddress"][1] ];
-          foursquare_data_venuePhone =    results[x]["venue"]["contact"]["formattedPhone"];
-          foursquare_data_venueLatLong =[ results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"] ];
-  // *Still in loop one* If it's a restaurant, store its info in the array. Ignore otherwise.
-          if (foursquare_data_venueType.match(restSearch)) {
-            restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
+        for (var x = 0; x < y; x++) {
+          if (results[x]["venue"]["name"].length > 0 && results[x]["venue"]["categories"][0]["name"].match(restSearch)) {
+            foursquare_data_venueName =     results[x]["venue"]["name"];
+            foursquare_data_venueType =     results[x]["venue"]["categories"][0]["name"];
+            foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
+            foursquare_data_venueAddress =[ results[x]["venue"]["location"]["formattedAddress"][0],
+                                            results[x]["venue"]["location"]["formattedAddress"][1] ];
+            foursquare_data_venuePhone =    results[x]["venue"]["contact"]["formattedPhone"];
+            foursquare_data_venueLatLong =[ results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"] ];
+
+             restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
                                       "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhone,
                                       "latlong" : foursquare_data_venueLatLong };
           }
+  // *Still in loop one* If it's a restaurant, store its info in the array. Ignore otherwise.
+          //if (foursquare_data_venueType.match(restSearch) && foursquare_data_venueName === true) {
+            console.log(foursquare_data_venueName);
+
+          //}
         }
   // *End of loop one* Sort the restaurants objects by check in amount
-        restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
+        restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin});
+
+//         for (var x = 0; x < y; x++) {
+//           if(typeof restaurantsSorted[x] === "undefined"){
+// console.log("fack")// fack. why does it still get to the else?
+//           } else {
+//             var restaurantHashtag = restaurantsSorted[x]["name"].replace(/\W/g,'');
+//             // debugger
+//             restaurantList.push(restaurantHashtag);
+//             console.log(restaurantList);
+//           }
+//         };
+
+        // debugger
+
   // *Start of loop two* Appending the restaurants and its info to the page's accordion
-        for (x = 0; x < y; x++) {
+        for (var x = 0; x < y; x++) {
           displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
             "</div><div class='collapsible-body'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
             restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
             "</div></li>");
+          //array.each x=0 xx++
+           // append <img src=[x]>
         }
   // *End of loop two*
       }
     });
-  }
+  }// getFoursquare
 
 
 
