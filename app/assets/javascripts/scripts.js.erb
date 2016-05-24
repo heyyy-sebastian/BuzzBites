@@ -1,11 +1,12 @@
 "use strict";
 
 $(document).ready(function() {
-
-  // Form variables
+// Various HTML elements
   var displayData = $("ul#displayData");
   var buttonZS = $("button#zip-search");
   var formZipCode = $('input#zip-search');
+
+// Foursquare query keys (and values)
   var section = "section=trending";
   var opennow = "openNow=1";
   //var datatype = "&m=foursquare";
@@ -13,12 +14,15 @@ $(document).ready(function() {
   // var offset = "offset=", offsetNum = 0;
   var query = "query=restaurants";
   var version = "v=20160821";
-  // Variables where the data will be stored/handled
+
+// Variables where the data will be stored/handled
   var foursquare_data_venueName = "", foursquare_data_venueType = "", foursquare_data_venueCheckins = 0;
+  var foursquare_data_venueAddress = [], foursquare_data_venuePhone = "", foursquare_data_venueLatLong = [];
   var zipCode = "";
-  var restSearch = /Restaurant/; // RegEx pattern
+  var restSearch = /Restaurant/; // RegEx pattern to find ONLY restaurants (and not McD's n stuf)
   var myLatitude = "", myLongitude = "", lat_lot = "";
-  //API keys
+
+//API keys
   var mapsApi = "<%= ENV['googlemaps_api_key'] %>";
   var client_id = "<%= ENV['foursquare_client_id'] %>";
   var client_secret = "<%= ENV['foursquare_client_secret'] %>";
@@ -30,89 +34,128 @@ $(document).ready(function() {
   var twitterAccessToken = "<%= ENV['twitter_access_token'] %>";
   var twitterAccessTokenSecret = "<%= ENV['twitter_access_token_secret'] %>";
 
+
+// Probably used by Materialize for some sort of animation on the page
   $("#scroll-top").click(function() {
     $('html, body').animate({
         scrollTop: $(".navbar-wrapper").offset().top
     }, 500);
   });
 
-  // This function finds the current location loaded from browser data
+// Used by Materialize for the accordion animation
+  $('.collapsible').collapsible({
+    accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+  });
+
+
+// This function finds the current location loaded from browser data
   var getLocation = function() {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
       } else { console.log('Geolocation is not supported or allowed for this Browser'); }
   }();
 
-  // Default list of local trending restaurants
+
+// Default list of local trending restaurants (using the browser's geolocation)
   function showPosition(position) {
-    displayData.empty();
-    myLatitude = position.coords.latitude;
+    displayData.empty();                        // Clears the restaurants list
+    myLatitude = position.coords.latitude;      // Latitude and longitude variables
     myLongitude = position.coords.longitude;
 
-    lat_lot = "ll="+myLatitude+","+myLongitude;
+    lat_lot = "ll="+myLatitude+","+myLongitude; // Foursquare query use
 
-    $.ajax({
+    $.ajax({                                    // Initial call to Foursquare
       method: "GET",
-      url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
-      success: function(data){
+      url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+
+            "&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
+      success: function(data){                  // Foursquare data received! Let's store it
         var results = data["response"]["groups"][0]["items"];
-        var x, y = results.length - 1, restaurantsSorted = [];
+        var x, y = results.length - 1, restaurantsSorted = [];  // Used for loops/storage
+// *Start of loop one* Here every Foursquare result is looped through to grab only what we want
         for (x = 0; x < y; x++) {
-          foursquare_data_venueName = results[x]["venue"]["name"];
-          foursquare_data_venueType = results[x]["venue"]["categories"][0]["name"];
+          foursquare_data_venueName =     results[x]["venue"]["name"];
+          foursquare_data_venueType =     results[x]["venue"]["categories"][0]["name"];
           foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
+          foursquare_data_venueAddress =[ results[x]["venue"]["location"]["formattedAddress"][0],
+                                          results[x]["venue"]["location"]["formattedAddress"][1] ];
+          foursquare_data_venuePhone =    results[x]["venue"]["contact"]["formattedPhone"];
+          foursquare_data_venueLatLong =[ results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"] ];
+// *Still in loop one* If it's a restaurant, store its info in the array. Ignore otherwise.
           if (foursquare_data_venueType.match(restSearch)) {
-            restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins };
+            restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
+                                      "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhone,
+                                      "latlong" : foursquare_data_venueLatLong };
           }
         }
+
+// *End of loop one* Sort the restaurants objects by check in amount
         restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
+
+// *Start of loop two* Appending the restaurants and its info to the page's accordion
         for (x = 0; x < y; x++) {
-          displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+"</div></li>");
+          displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+
+            "</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+
+            "</div></li>");
         }
+// End of loop two
       }
     });
   }
-  // List of trending restaurants from zipcode submitted by user
+
+
+// Zip code given! List of trending restaurants from zipcode submitted by user
   buttonZS.click(function() {
-    displayData.empty();
-    zipCode = formZipCode.val();
-    if (zipCode != "") {
-      $.ajax({
+    displayData.empty();                        // Clears the restaurants list
+    zipCode = formZipCode.val();                // The user's zip code
+
+    if (zipCode != "") {                        // If the above's not empty
+      $.ajax({                                  // Initial call to Google Maps
         method: "GET",
         url: "https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:"+zipCode+"&key="+mapsApi,
         success: function(data){
           myLongitude = data['results'][0]['geometry']['location']['lng'];
           myLatitude = data['results'][0]['geometry']['location']['lat'];
-          lat_lot = "ll="+myLatitude+","+myLongitude; // Store the lat and lon info for
+          lat_lot = "ll="+myLatitude+","+myLongitude; // Store the lat and lon info for Foursquare's url build
 
-          $.ajax({
+          $.ajax({                              // Initial call to Foursquare
             method: "GET",
-            url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+"&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
-            success: function(data){
+            url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+
+                  "&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
+            success: function(data){            // Foursquare data received! Let's store it
               var results = data["response"]["groups"][0]["items"];
-              var x, y = results.length - 1, restaurantsSorted = [];
-
+              var x, y = results.length - 1, restaurantsSorted = [];  // Used for loops/storage
+// *Start of loop one* Here every Foursquare result is looped through to grab only what we want
               for (x = 0; x < y; x++) {
-                foursquare_data_venueName = results[x]["venue"]["name"];
-                foursquare_data_venueType = results[x]["venue"]["categories"][0]["name"];
+                foursquare_data_venueName =     results[x]["venue"]["name"];
+                foursquare_data_venueType =     results[x]["venue"]["categories"][0]["name"];
                 foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
+                foursquare_data_venueAddress =[ results[x]["venue"]["location"]["formattedAddress"][0],
+                                                results[x]["venue"]["location"]["formattedAddress"][1] ];
+                foursquare_data_venuePhone =    results[x]["venue"]["contact"]["formattedPhone"];
+                foursquare_data_venueLatLong =[ results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"] ];
+// *Still in loop one* If it's a restaurant, store its info in the array. Ignore otherwise.
                 if (foursquare_data_venueType.match(restSearch)) {
-                  restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins };
+                  restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
+                                            "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhone,
+                                            "latlong" : foursquare_data_venueLatLong };
                 }
               }
+
+// *End of loop one* Sort the restaurants objects by check in amount
               restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
+
+// *Start of loop two* Appending the restaurants and its info to the page's accordion
               for (x = 0; x < y; x++) {
-                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+"</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+"</div></li>");
+                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"]+
+                  "</div><div class='collapsible-body'>Checkin id: "+restaurantsSorted[x]["checkin"]+
+                  "</div></li>");
               }
+// *End of loop two*
             }
           });
         }
       });
     }
   });
-
-  $('.collapsible').collapsible({
-      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });
 });
 
