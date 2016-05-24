@@ -21,12 +21,6 @@ class WelcomeController < ApplicationController
     redirect_to(:back)
   end
 
-  # def edit
-  # end
-
-  # def update
-  # end
-
   def login
     # Add one to each login a user has
     username = params['username']
@@ -34,6 +28,7 @@ class WelcomeController < ApplicationController
     if  @user = User.find_by(username: username)
         loginnum = @user["loginnum"]
       if @user.is_password?(password)
+        byebug
         session["id"] = @user["id"]
         loginnum = loginnum + 1
         @user.update(loginnum: loginnum)
@@ -43,13 +38,13 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def logout
-      session.delete("id")
-      redirect_to "/"
-  end
+  # def logout
+  #     session.delete("id")
+  #     redirect_to "/"
+  # end
 
   private
     def user_params
-      params.require(:user).permit(:name, :email, :username, :password)
+      params.require(:user).permit(:name, :email, :username, :password, loginnum: 1)
     end
 end
