@@ -21,15 +21,13 @@ div.collapsible-body {
 }
 
 div#userSignUp {
-  width: 35%;
-  margin: auto;
-  display: none;
+/*   width: 35%;
+  margin: auto; */
 }
 
 div#userLogin {
-  width: 35%;
-  margin: auto;
-  display: none;
+/*   width: 35%;
+  margin: auto; */
 }
 
 .brand-logo {

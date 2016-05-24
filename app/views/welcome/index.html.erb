@@ -8,37 +8,38 @@
   <ul id="displayData" class="collapsible" data-collapsible="accordion"></ul>
 </div>
 <br><br>
-<div id="userSignUp">
-  <br>
-  <h4>Sign up with BuzzBites!</h4>
-  <br>
-  <%= form_tag("/welcome", method: "create") do %>
-    <%= label_tag(:name, "Name:") %>
-    <%= text_field_tag(:name) %>
-    <%= label_tag(:email, "Email:") %>
-    <%= text_field_tag(:email) %>
-    <%= label_tag(:username, "Username:") %>
-    <%= text_field_tag(:username) %>
-    <%= label_tag(:password, "Password:") %>
-    <%= password_field_tag(:password) %>
-    <%= label_tag(:password_confirmation, "Confirm Password:") %>
-    <%= password_field_tag(:password_confirmation) %>
-    <%= submit_tag("Sign Up") %>
-  <% end %>
-  <button class="cancel-button">Cancel</button>
+<div id="modal1" class="modal">
+  <div class="modal-content" id="userSignUp">
+    <br>
+    <h4>Sign up with BuzzBites!</h4>
+    <br>
+    <%= form_tag("/welcome", method: "create") do %>
+      <%= label_tag(:name, "Name:") %>
+      <%= text_field_tag(:name) %>
+      <%= label_tag(:email, "Email:") %>
+      <%= text_field_tag(:email) %>
+      <%= label_tag(:username, "Username:") %>
+      <%= text_field_tag(:username) %>
+      <%= label_tag(:password, "Password:") %>
+      <%= password_field_tag(:password) %>
+      <%= label_tag(:password_confirmation, "Confirm Password:") %>
+      <%= password_field_tag(:password_confirmation) %>
+      <%= submit_tag("Sign Up", class:"waves-effect waves-light btn light blue") %>
+    <% end %>
+  </div>
 </div>
 
-<div id="userLogin">
-  <br>
-  <h4>Welcome back! Please log in.</h4>
-  <br>
-  <%= form_tag(welcome_login_path, method: "patch") do %>
-    <%= label_tag(:username, "Username:") %>
-    <%= text_field_tag(:username) %>
-    <%= label_tag(:password, "Password:") %>
-    <%= password_field_tag(:password) %>
-    <%= submit_tag("Log in") %>
-  <% end %>
-  <button class="cancel-button">Cancel</button>
+<div id="modal2" class="modal">
+  <div class="modal-content" id="userLogin">
+    <br>
+    <h4>Welcome back! Please log in.</h4>
+    <br>
+    <%= form_tag(welcome_login_path, method: "patch") do %>
+      <%= label_tag(:username, "Username:") %>
+      <%= text_field_tag(:username) %>
+      <%= label_tag(:password, "Password:") %>
+      <%= password_field_tag(:password) %>
+      <%= submit_tag("Log in", class:"waves-effect waves-light btn light blue") %>
+    <% end %>
+  </div>
 </div>
-
