@@ -32,6 +32,10 @@ div#userLogin {
   display: none;
 }
 
+.brand-logo {
+  font-weight: bold;
+}
+
 .footer-list {
   cursor: pointer;
 }

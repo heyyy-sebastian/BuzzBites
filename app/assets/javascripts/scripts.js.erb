@@ -62,22 +62,16 @@ $(document).ready(function() {
   }();
 
 
-// Default list of local trending restaurants (using the browser's geolocation)
-  function showPosition(position) {
-    displayData.empty();                        // Clears the restaurants list
-    myLatitude = position.coords.latitude;      // Latitude and longitude variables
-    myLongitude = position.coords.longitude;
-
-    lat_lot = "ll="+myLatitude+","+myLongitude; // Foursquare query use
-
-    $.ajax({                                    // Initial call to Foursquare
+  // This function finds a list of nearby checked-in restaurants FourSquare's API based on longitude and latitude
+  var getFoursquare = function () {
+    $.ajax({                              // Initial call to Foursquare
       method: "GET",
       url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+
             "&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
-      success: function(data){                  // Foursquare data received! Let's store it
+      success: function(data){            // Foursquare data received! Let's store it
         var results = data["response"]["groups"][0]["items"];
         var x, y = results.length - 1, restaurantsSorted = [];  // Used for loops/storage
-// *Start of loop one* Here every Foursquare result is looped through to grab only what we want
+  // *Start of loop one* Here every Foursquare result is looped through to grab only what we want
         for (x = 0; x < y; x++) {
           foursquare_data_venueName =     results[x]["venue"]["name"];
           foursquare_data_venueType =     results[x]["venue"]["categories"][0]["name"];
@@ -86,28 +80,41 @@ $(document).ready(function() {
                                           results[x]["venue"]["location"]["formattedAddress"][1] ];
           foursquare_data_venuePhone =    results[x]["venue"]["contact"]["formattedPhone"];
           foursquare_data_venueLatLong =[ results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"] ];
-// *Still in loop one* If it's a restaurant, store its info in the array. Ignore otherwise.
+  // *Still in loop one* If it's a restaurant, store its info in the array. Ignore otherwise.
           if (foursquare_data_venueType.match(restSearch)) {
             restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
                                       "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhone,
                                       "latlong" : foursquare_data_venueLatLong };
           }
         }
-
-// *End of loop one* Sort the restaurants objects by check in amount
+  // *End of loop one* Sort the restaurants objects by check in amount
         restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
-
-// *Start of loop two* Appending the restaurants and its info to the page's accordion
+  // *Start of loop two* Appending the restaurants and its info to the page's accordion
         for (x = 0; x < y; x++) {
-                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
-                  "</div><div class='collapsible-body'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
-                  restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
-                  "</div></li>");
-              }
-// End of loop two
+          displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
+            "</div><div class='collapsible-body'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
+            restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
+            "</div></li>");
+        }
+  // *End of loop two*
       }
     });
   }
+
+
+
+
+
+// Default list of local trending restaurants (using the browser's geolocation)
+  function showPosition(position) {
+    displayData.empty();                        // Clears the restaurants list
+    myLatitude = position.coords.latitude;      // Latitude and longitude variables
+    myLongitude = position.coords.longitude;
+
+    lat_lot = "ll="+myLatitude+","+myLongitude; // Foursquare query use
+
+    getFoursquare();
+  };
 
 
 // Zip code given! List of trending restaurants from zipcode submitted by user
@@ -124,43 +131,7 @@ $(document).ready(function() {
           myLatitude = data['results'][0]['geometry']['location']['lat'];
           lat_lot = "ll="+myLatitude+","+myLongitude; // Store the lat and lon info for Foursquare's url build
 
-          $.ajax({                              // Initial call to Foursquare
-            method: "GET",
-            url: "https://api.foursquare.com/v2/venues/explore?client_id="+client_id+"&client_secret="+client_secret+"&"+version+
-                  "&"+section+"&"+opennow+"&"+query+"&"+lat_lot,
-            success: function(data){            // Foursquare data received! Let's store it
-              var results = data["response"]["groups"][0]["items"];
-              var x, y = results.length - 1, restaurantsSorted = [];  // Used for loops/storage
-// *Start of loop one* Here every Foursquare result is looped through to grab only what we want
-              for (x = 0; x < y; x++) {
-                foursquare_data_venueName =     results[x]["venue"]["name"];
-                foursquare_data_venueType =     results[x]["venue"]["categories"][0]["name"];
-                foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
-                foursquare_data_venueAddress =[ results[x]["venue"]["location"]["formattedAddress"][0],
-                                                results[x]["venue"]["location"]["formattedAddress"][1] ];
-                foursquare_data_venuePhone =    results[x]["venue"]["contact"]["formattedPhone"];
-                foursquare_data_venueLatLong =[ results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"] ];
-// *Still in loop one* If it's a restaurant, store its info in the array. Ignore otherwise.
-                if (foursquare_data_venueType.match(restSearch)) {
-                  restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
-                                            "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhone,
-                                            "latlong" : foursquare_data_venueLatLong };
-                }
-              }
-
-// *End of loop one* Sort the restaurants objects by check in amount
-              restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin;});
-
-// *Start of loop two* Appending the restaurants and its info to the page's accordion
-              for (x = 0; x < y; x++) {
-                displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
-                  "</div><div class='collapsible-body'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
-                  restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
-                  "</div></li>");
-              }
-// *End of loop two*
-            }
-          });
+          getFoursquare();
         }
       });
     }
