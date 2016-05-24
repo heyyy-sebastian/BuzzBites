@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   end
 
   def create
-    byebug
+    # byebug
     if params['password'] == params['password_confirmation']
       if is_password?(password)
         newUser = User.create(name: params['name'], email: params['email'], username: params['username'], password: params['password'], loginnum: 1)
@@ -31,18 +31,19 @@ class WelcomeController < ApplicationController
     if  @user = User.find_by(username: username)
         loginnum = @user["loginnum"]
       if @user.is_password?(password)
-        byebug
         session["id"] = @user["id"]
         loginnum = loginnum + 1
-        @user.update(loginnum: loginnum)
+        # byebug
+        @user.update(loginnum: loginnum.to_i)
         render :index
+      else
+        render text: "Invalid username/password."
       end
-      render text: "Invalid username/password."
     end
   end
 
   def logout
-      session.delete("id")
+      session.delete(:id)
       redirect_to "/"
   end
 
