@@ -51,7 +51,7 @@ table {
 
 input#zip-search {
   border: 1px solid grey;
-  width: 100px;
+  width: 70%;
   height: 2em;
   margin: auto;
 }
@@ -78,3 +78,4 @@ div#userLogin {
   margin: auto;
   display: none;
 }
+
