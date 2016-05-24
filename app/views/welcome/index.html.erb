@@ -14,15 +14,15 @@
   <br>
   <%= form_tag("/welcome", method: "create") do %>
     <%= label_tag(:name, "Name:") %>
-    <%= text_field_tag(:name) %>
+    <%= text_field_tag :name, "", required: "required" %>
     <%= label_tag(:email, "Email:") %>
-    <%= text_field_tag(:email) %>
+    <%= text_field_tag :email, "", minlength: 8, required: "required" %>
     <%= label_tag(:username, "Username:") %>
-    <%= text_field_tag(:username) %>
+    <%= text_field_tag :username, "", required: "required" %>
     <%= label_tag(:password, "Password:") %>
-    <%= password_field_tag(:password) %>
+    <%= password_field_tag :password, "", minlength: 8, required: "required" %>
     <%= label_tag(:password_confirmation, "Confirm Password:") %>
-    <%= password_field_tag(:password_confirmation) %>
+    <%= password_field_tag :password_confirmation, "", minlength: 8, required: "required" %>
     <%= submit_tag("Sign Up") %>
   <% end %>
   <button class="cancel-button">Cancel</button>
@@ -34,9 +34,9 @@
   <br>
   <%= form_tag(welcome_login_path, method: "patch") do %>
     <%= label_tag(:username, "Username:") %>
-    <%= text_field_tag(:username) %>
+    <%= text_field_tag :username, "", required: "required" %>
     <%= label_tag(:password, "Password:") %>
-    <%= password_field_tag(:password) %>
+    <%= password_field_tag :password, "", minlength: 8, required: "required" %>
     <%= submit_tag("Log in") %>
   <% end %>
   <button class="cancel-button">Cancel</button>

@@ -4,7 +4,6 @@ class WelcomeController < ApplicationController
   end
 
   def create
-    # byebug
     if params['password'] == params['password_confirmation']
       if is_password?(password)
         newUser = User.create(name: params['name'], email: params['email'], username: params['username'], password: params['password'], loginnum: 1)
@@ -33,7 +32,6 @@ class WelcomeController < ApplicationController
       if @user.is_password?(password)
         session["id"] = @user["id"]
         loginnum = loginnum + 1
-        # byebug
         @user.update(loginnum: loginnum.to_i)
         render :index
       else
