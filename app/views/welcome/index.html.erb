@@ -9,7 +9,9 @@
 </div>
 <br><br>
 <div id="userSignUp">
-  <br><br>
+  <br>
+  <h4>Sign up with BuzzBites!</h4>
+  <br>
   <%= form_tag("/welcome", method: "create") do %>
     <%= label_tag(:name, "Name:") %>
     <%= text_field_tag(:name) %>
@@ -27,7 +29,9 @@
 </div>
 
 <div id="userLogin">
-  <br><br>
+  <br>
+  <h4>Welcome back! Please log in.</h4>
+  <br>
   <%= form_tag(welcome_login_path, method: "patch") do %>
     <%= label_tag(:username, "Username:") %>
     <%= text_field_tag(:username) %>
