@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-
-  resources :welcome, only: [:index, :create, :destroy]
+  patch 'welcome/login', to: 'welcome#login'
+  resources :welcome, only: [:index, :create, :login]
 end

@@ -1,7 +1,17 @@
 "use strict";
 $(document).ready(function() {
-  var userForm = $("div#userForm");
+  var signUpClick = $("li#signUpClick");
+  var loginClick = $("li#loginClick");
+  var divUserSignUp = $("div#userSignUp");
+  var divUserLogin = $("div#userLogin");
 
-  userForm.hide();
+  signUpClick.click(function() {
+    divUserSignUp.show("fast");
+    divUserLogin.hide("fast");
+  });
 
+  loginClick.click(function() {
+    divUserSignUp.hide("fast");
+    divUserLogin.show("fast");
+  });
 });
