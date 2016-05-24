@@ -39,8 +39,9 @@ $(document).ready(function() {
   $("#scroll-top").click(function() {
     $('html, body').animate({
         scrollTop: $(".navbar-wrapper").offset().top
-    }, 500);
+    }, 300);
   });
+
 
 // Used by Materialize for the accordion animation
   $('.collapsible').collapsible({
@@ -48,7 +49,12 @@ $(document).ready(function() {
   });
 
 
-// This function finds the current location loaded from browser data
+  // Used by Materialize for the parallax animation
+  $('.parallax').parallax();
+
+
+  // This function finds the current location loaded from browser data
+
   var getLocation = function() {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);

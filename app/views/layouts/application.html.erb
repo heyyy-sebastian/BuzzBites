@@ -2,25 +2,31 @@
 <html>
 <head>
   <title>BuzzBites</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <%= csrf_meta_tags %>
 </head>
 <body class="orange lighten-5">
   <nav class="orange">
     <div class="navbar-wrapper container">
       <a href="/" class="brand-logo">BuzzBites</a>
       <ul class="right">
-        <li id="signUpClick"><a href="#">Sign Up</a></li>
-        <li id="loginClick"><a href="#">Log In</a></li>
+        <li id="signUpClick"><a>Sign Up</a></li>
+        <li id="loginClick"><a>Log In</a></li>
       </ul>
     </div>
   </nav>
+  <div class="parallax-container">
+    <div class="parallax"><img src="/assets/bg_image2.jpg"></div>
+  </div>
 
 <%= yield %>
 
+  <div class="parallax-container">
+    <div class="parallax"><img src="/assets/bg_image3.jpg"></div>
+  </div>
   <footer class="page-footer orange">
     <div class="container">
       <div class="row">
@@ -31,8 +37,8 @@
         <div class="col s3">
           <ul class="white-text">
             <li class="footer-list" id="scroll-top">Top</li>
-            <li class="footer-list"><a href="#">Sign Up</a></li>
-            <li class="footer-list"><a href="#">Log In</a></li>
+            <li class="footer-list" id="signUpClick">Sign Up</li>
+            <li class="footer-list" id="loginClick">Log In</li>
           </ul>
         </div>
       </div>
