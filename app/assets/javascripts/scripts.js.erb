@@ -33,8 +33,11 @@ $(document).ready(function() {
   $("#scroll-top").click(function() {
     $('html, body').animate({
         scrollTop: $(".navbar-wrapper").offset().top
-    }, 500);
+    }, 300);
   });
+
+  $('.parallax').parallax();
+
 
   // This function finds the current location loaded from browser data
   var getLocation = function() {
