@@ -15,7 +15,8 @@
       <ul class="right">
 
         <li id="signUpClick"><a>Sign Up</a></li>
-        <% if session["id"] %><li id="logoutClick"><a>Log Out</a></li>
+        <% if session["id"] %><!--<li id="logoutClick"><a>Log Out</a></li>-->
+        <%= link_to "Log Out", welcome_logout_path, method: "destroy" %>
         <% else %> <li id="loginClick"><a>Log In</a></li>
         <% end %>
 
