@@ -19,6 +19,12 @@ div.collapsible-body {
   padding: 0 10%;
 }
 
+.collapsible-body img {
+  margin: 0 auto;
+  max-width: 90%;
+  height: auto;
+}
+
 .brand-logo {
   font-weight: bold;
 }

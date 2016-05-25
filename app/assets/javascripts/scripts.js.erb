@@ -5,6 +5,7 @@ $(document).ready(function() {
   var displayData = $("ul#displayData");
   var buttonZS = $("button#zip-search");
   var formZipCode = $('input#zip-search');
+  var locationTitle = $('#location-title');
 
 // Foursquare query keys (and values)
   var section = "section=trending";
@@ -101,6 +102,7 @@ $(document).ready(function() {
             var hashtag = restaurantsSorted[x]["name"].replace(/\W/g,'');
             instagramPics(restaurantsSorted[x], hashtag);
           }
+          restaurantsSorted = [];
 
 
   // *Start of loop two* Appending the restaurants and its info to the page's accordion
@@ -131,7 +133,6 @@ $(document).ready(function() {
                 // for (var i = 0; i < 6; i++) {
                 //   if(instaData["data"][i]["images"]["standard_resolution"]["url"] === false){
                 //   }else{
-
                     var instagramPic = instaData["data"][0]["images"]["standard_resolution"]["url"];
                     var instagramPic2 = instaData["data"][1]["images"]["standard_resolution"]["url"];
 
@@ -173,6 +174,9 @@ $(document).ready(function() {
   buttonZS.click(function() {
     displayData.empty();                        // Clears the restaurants list
     zipCode = formZipCode.val();                // The user's zip code
+    locationTitle.empty();
+    locationTitle.append("<h5 id='location-title'><em><b>Restaurants around "+zipCode+" with Buzz</b></em></h5>");
+
 
     if (zipCode != "") {                        // If the above's not empty
       $.ajax({                                  // Initial call to Google Maps
