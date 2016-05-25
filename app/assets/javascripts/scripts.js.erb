@@ -5,6 +5,7 @@ $(document).ready(function() {
   var displayData = $("ul#displayData");
   var buttonZS = $("button#zip-search");
   var formZipCode = $('input#zip-search');
+  var locationTitle = $('#location-title');
 
 // Foursquare query keys (and values)
   var section = "section=trending";
@@ -173,6 +174,9 @@ $(document).ready(function() {
   buttonZS.click(function() {
     displayData.empty();                        // Clears the restaurants list
     zipCode = formZipCode.val();                // The user's zip code
+    locationTitle.empty();
+    locationTitle.append("<h5 id='location-title'><em><b>Restaurants around "+zipCode+" with Buzz</b></em></h5>")
+
 
     if (zipCode != "") {                        // If the above's not empty
       $.ajax({                                  // Initial call to Google Maps
