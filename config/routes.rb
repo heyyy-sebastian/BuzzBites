@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get '/' => 'welcome#index'
+
   root 'welcome#index'
   patch 'welcome/login', to: 'welcome#login'
   get 'welcome/login', to: 'welcome#login'
