@@ -19,6 +19,12 @@ div.collapsible-body {
   padding: 0 10%;
 }
 
+.collapsible-body img {
+  margin: 0 auto;
+  max-width: 90%;
+  height: auto;
+}
+
 .brand-logo {
   font-weight: bold;
 }
@@ -44,14 +50,15 @@ footer.page-footer .footer-copyright {
     height: 96px;
   }
 
+  #mobile-navlink li {
+    float: none;
+    display: inline;
+  }
+
   #mobile-navlink {
     padding-top: 40px;
+    text-align: center;
   }
-
-  #mobile-navlink > li {
-    /* text-align: center; */
-  }
-
   .parallax-container {
     height: 150px;
   }
