@@ -1,12 +1,11 @@
 
 
-/* END OF RESET CSS */
-
 input#zip-search {
   border: 1px solid grey;
-  width: 70%;
+  width: 250px;
   height: 2em;
   margin: auto;
+  background-color: white;
 }
 
 div#centerThis {
@@ -20,16 +19,6 @@ div.collapsible-body {
   padding: 0 10%;
 }
 
-div#userSignUp {
-/*   width: 35%;
-  margin: auto; */
-}
-
-div#userLogin {
-/*   width: 35%;
-  margin: auto; */
-}
-
 .brand-logo {
   font-weight: bold;
 }
@@ -40,4 +29,37 @@ div#userLogin {
 
 .parallax-container {
   height: 300px;
+}
+
+footer.page-footer .footer-copyright {
+  height: 90px;
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+  nav {
+    height: 96px;
+  }
+
+  #mobile-navlink {
+    padding-top: 40px;
+  }
+
+  #mobile-navlink > li {
+    /* text-align: center; */
+  }
+
+  .parallax-container {
+    height: 150px;
+  }
+
+  div#centerThis {
+  width: 95%;
+}
+
+
+
 }
