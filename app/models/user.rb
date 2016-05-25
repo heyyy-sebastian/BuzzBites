@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
       length: { minimum: 8 },
       format: { with: /[A-Za-z0-9._]/ }
 
-      def is_password?(password)
-        BCrypt::Password.new(self.password_digest) == password
-      end
+  def is_password?(password)
+    BCrypt::Password.new(self.password_digest) == password
+  end
 end

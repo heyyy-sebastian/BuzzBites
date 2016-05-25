@@ -15,7 +15,7 @@
       <ul class="right hide-on-small-only">
 
         <li id="signUpClick"><a>Sign Up</a></li>
-        <% if session["id"] %><!--<li id="logoutClick"><a>Log Out</a></li>-->
+        <% if session[:user_id] %><!--<li id="logoutClick"><a>Log Out</a></li>-->
         <%= link_to "Log Out", welcome_logout_path, method: "destroy" %>
         <% else %> <li id="loginClick"><a>Log In</a></li>
         <% end %>
@@ -49,9 +49,14 @@
         </div>
         <div class="col s3 offset-s3">
           <ul class="white-text">
-            <li class="footer-list" id="scroll-top">Top</li>
-            <li class="footer-list" id="signUpClick">Sign Up</li>
-            <li class="footer-list" id="loginClick">Log In</li>
+            <li class="footer-list" id="scroll-top"><a>Top</a></li>
+            <li class="footer-list" id="signUpClick"><a>Sign Up</a></li>
+            <% if session[:user_id] %><!--<li id="logoutClick"><a>Log Out</a></li>-->
+            <%= link_to "Log Out", welcome_logout_path, method: "destroy" %>
+            <% else %> <li class="footer-list" id="loginClick"><a>Log In</a></li>
+            <% end %>
+
+            <!-- <li class="footer-list" id="loginClick">Log In</li> -->
           </ul>
         </div>
       </div>
