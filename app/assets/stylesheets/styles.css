@@ -38,7 +38,6 @@ footer.page-footer .footer-copyright {
 
 
 
-
 @media only screen and (max-width: 600px) {
 
   nav {
@@ -50,21 +49,17 @@ footer.page-footer .footer-copyright {
     display: inline;
   }
 
-
-
   #mobile-navlink {
     padding-top: 40px;
     text-align: center;
   }
-
   .parallax-container {
     height: 150px;
   }
 
   div#centerThis {
   width: 95%;
-  }
-
+}
 
 
 
