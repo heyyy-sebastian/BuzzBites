@@ -1,45 +1,44 @@
-<br/>
 <div id="centerThis">
-  <h5><em><b>Planning on eating somewhere else?</b></em></h5>
-  <input placeholder="Enter the Zip Code!" type="text" name="zip-search" id="zip-search" /> <button class="btn waves-effect waves-light light blue" id="zip-search">Submit</button>
+  <div class="search-wrapper card">
+    <input placeholder="Planning to eat elsewhere? Enter the Zip Code!" type="text" name="zip-search" id="zip-search" /> <button class="btn waves-effect waves-light light blue" id="zip-search">Submit</button>
+  </div>
 </div>
 <br/>
 <div id="centerThis">
-  <h5 id="location-title"><em><b>Restaurants around you with Buzz</b></em></h5>
   <ul id="displayData" class="collapsible" data-collapsible="accordion"></ul>
 </div>
 <br><br>
-<div id="modal1" class="modal">
-  <div class="modal-content" id="userSignUp">
-    <br>
-    <h4>Sign up with BuzzBites!</h4>
-    <br>
-    <%= form_tag("/welcome", method: "create") do %>
-      <%= label_tag(:name, "Name:") %>
-      <%= text_field_tag(:name, "", required: "required") %>
-      <%= label_tag(:email, "Email:") %>
-      <%= text_field_tag(:email, "", minlength: 8, required: "required") %>
-      <%= label_tag(:username, "Username:") %>
-      <%= text_field_tag(:username, "", required: "required") %>
-      <%= label_tag(:password, "Password:") %>
-      <%= password_field_tag(:password, "", minlength: 8, required: "required") %>
-      <%= label_tag(:password_confirmation, "Confirm Password:") %>
-      <%= password_field_tag(:password_confirmation, "", minlength: 8, required: "required") %>
-      <%= submit_tag("Sign Up", class:"waves-effect waves-light btn light blue") %>
-    <% end %>
-  </div>
+<div id="userSignUp">
+  <br>
+  <h4>Sign up with BuzzBites!</h4>
+  <br>
+  <%= form_tag("/welcome", method: "create") do %>
+    <%= label_tag(:name, "Name:") %>
+    <%= text_field_tag :name, "", required: "required" %>
+    <%= label_tag(:email, "Email:") %>
+    <%= text_field_tag :email, "", minlength: 8, required: "required" %>
+    <%= label_tag(:username, "Username:") %>
+    <%= text_field_tag :username, "", required: "required" %>
+    <%= label_tag(:password, "Password:") %>
+    <%= password_field_tag :password, "", minlength: 8, required: "required" %>
+    <%= label_tag(:password_confirmation, "Confirm Password:") %>
+    <%= password_field_tag :password_confirmation, "", minlength: 8, required: "required" %>
+    <%= submit_tag("Sign Up") %>
+  <% end %>
+  <button class="cancel-button">Cancel</button>
 </div>
 
-<div id="modal2" class="modal">
-  <div class="modal-content" id="userLogin">
-    <br>
-    <h4>Welcome back! Please log in.</h4>
-    <br>
-    <%= form_tag(welcome_login_path, method: "patch") do %>
-      <%= label_tag(:username, "Username:") %>
-      <%= text_field_tag(:username, "", required: "required") %>
-      <%= label_tag(:password, "Password:") %>
-      <%= password_field_tag(:password, "", minlength: 8, required: "required") %>
-      <%= submit_tag("Log in", class:"waves-effect waves-light btn light blue") %>
-    <% end %>
-  </div>
+<div id="userLogin">
+  <br>
+  <h4>Welcome back! Please log in.</h4>
+  <br>
+  <%= form_tag(welcome_login_path, method: "patch") do %>
+    <%= label_tag(:username, "Username:") %>
+    <%= text_field_tag :username, "", required: "required" %>
+    <%= label_tag(:password, "Password:") %>
+    <%= password_field_tag :password, "", minlength: 8, required: "required" %>
+    <%= submit_tag("Log in") %>
+  <% end %>
+  <button class="cancel-button">Cancel</button>
+</div>
+

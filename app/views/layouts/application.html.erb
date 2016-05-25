@@ -2,62 +2,37 @@
 <html>
 <head>
   <title>BuzzBites</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 </head>
-<body class="orange lighten-5">
+<body>
   <nav class="orange">
     <div class="navbar-wrapper container">
       <a href="/" class="brand-logo">BuzzBites</a>
-      <ul class="right hide-on-small-only">
-
-        <li id="signUpClick"><a>Sign Up</a></li>
-        <% if session["id"] %><!--<li id="logoutClick"><a>Log Out</a></li>-->
-        <%= link_to "Log Out", welcome_logout_path, method: "destroy" %>
-        <% else %> <li id="loginClick"><a>Log In</a></li>
-        <% end %>
-
-      </ul>
-      <ul id="mobile-navlink" class="hide-on-med-and-up">
-        <li id="signUpClick"><a>Sign Up</a></li>
-        <% if session["id"] %><li id="logoutClick"><a>Log Out</a></li>
-        <% else %> <li id="loginClick"><a>Log In</a></li>
-        <% end %>
+      <ul class="right">
+        <li id="signUpClick"><a href="#">Sign Up</a></li>
+        <li id="loginClick"><a href="#">Log In</a></li>
       </ul>
     </div>
   </nav>
-  <div class="parallax-container">
-    <div class="parallax"><img src="/assets/bg_image2.jpg"></div>
-  </div>
 
 <%= yield %>
 
-  <div class="parallax-container">
-    <div class="parallax"><img src="/assets/bg_image3.jpg"></div>
-  </div>
   <footer class="page-footer orange">
     <div class="container">
       <div class="row">
-        <div class="col s6">
+        <div class="col l6 s12">
           <h5 class="white-text">About this site</h5>
-          <p class="white-text">Want to eat what everyone else is eating? See what everyone else is posting? Let BuzzBites guide you to your next stop!</p>
-        </div>
-        <div class="col s3 offset-s3">
-          <ul class="white-text">
-            <li class="footer-list" id="scroll-top">Top</li>
-            <li class="footer-list" id="signUpClick">Sign Up</li>
-            <li class="footer-list" id="loginClick">Log In</li>
-          </ul>
+          <p class="white-text">Want to eat what everyone else is eating? See what everyone else is posting? Let BuzzBites guide you to your next selfie!</p>
         </div>
       </div>
     </div>
     <div class="footer-copyright">
       <div class="container">
-        Copyright &copy; 2016 BuzzBites<br>
-        Mekesia Brown | Reggie Kim | Victor Lin | David Patuwo
+        Copyright &copy; 2016 BuzzBites | Mekesia Brown | Reggie Kim | Victor Lin | David Patuwo
       </div>
     </div>
   </footer>
