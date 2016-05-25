@@ -4,9 +4,7 @@ $(document).ready(function() {
 // Various HTML elements
   var displayData = $("ul#displayData");
   var buttonZS = $("button#zip-search");
-  var buzzbitesLogo = $(".brand-logo");
   var formZipCode = $('input#zip-search');
-  var locationTitle = $('h5#location-title');
 
 // Foursquare query keys (and values)
   var section = "section=trending";
@@ -16,6 +14,7 @@ $(document).ready(function() {
   // var offset = "offset=", offsetNum = 0;
   var query = "query=restaurants";
   var version = "v=20160821";
+  var restaurantsSorted = [];
 
 // Variables where the data will be stored/handled
   var foursquare_data_venueName = "", foursquare_data_venueType = "", foursquare_data_venueCheckins = 0;
@@ -73,60 +72,86 @@ $(document).ready(function() {
       success: function(data){            // Foursquare data received! Let's store it
         var results = data["response"]["groups"][0]["items"];
         var y = results.length - 1,
-            restaurantsSorted = [], // Used for loops/storage
-            restaurantList = [];
-
+        restaurantList = [];
 
   // *Start of loop one* Here every Foursquare result is looped through to grab only what we want
         for (var x = 0; x < y; x++) {
-          if (results[x]["venue"]["name"].length > 0 && results[x]["venue"]["categories"][0]["name"].match(restSearch)) {
+          if (results[x]["venue"]["categories"][0]["name"].match(restSearch)) {
             foursquare_data_venueName =     results[x]["venue"]["name"];
             foursquare_data_venueType =     results[x]["venue"]["categories"][0]["name"];
             foursquare_data_venueCheckins = results[x]["venue"]["stats"]["checkinsCount"];
-            foursquare_data_venueAddress =[ results[x]["venue"]["location"]["formattedAddress"][0],
+            foursquare_data_venueAddress = [results[x]["venue"]["location"]["formattedAddress"][0],
                                             results[x]["venue"]["location"]["formattedAddress"][1] ];
             foursquare_data_venuePhone =    results[x]["venue"]["contact"]["formattedPhone"];
             foursquare_data_venueLatLong =[ results[x]["venue"]["location"]["lat"], results[x]["venue"]["location"]["lng"] ];
 
-             restaurantsSorted[x] = { "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
+            restaurantsSorted.push({ "name" : foursquare_data_venueName, "checkin" : foursquare_data_venueCheckins,
                                       "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhone,
-                                      "latlong" : foursquare_data_venueLatLong };
+                                      "latlong" : foursquare_data_venueLatLong });
           }
-  // *Still in loop one* If it's a restaurant, store its info in the array. Ignore otherwise.
-          //if (foursquare_data_venueType.match(restSearch) && foursquare_data_venueName === true) {
-            console.log(foursquare_data_venueName);
-
-          //}
+          else{
+            //console.log(results[x]["venue"]["name"]);
+          }
         }
+
   // *End of loop one* Sort the restaurants objects by check in amount
         restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin});
 
-//         for (var x = 0; x < y; x++) {
-//           if(typeof restaurantsSorted[x] === "undefined"){
-// console.log("fack")// fack. why does it still get to the else?
-//           } else {
-//             var restaurantHashtag = restaurantsSorted[x]["name"].replace(/\W/g,'');
-//             // debugger
-//             restaurantList.push(restaurantHashtag);
-//             console.log(restaurantList);
-//           }
-//         };
+        for (var x = 0; x < restaurantsSorted.length; x++) {
+            var hashtag = restaurantsSorted[x]["name"].replace(/\W/g,'');
+            instagramPics(restaurantsSorted[x], hashtag);
+          }
 
-        // debugger
 
   // *Start of loop two* Appending the restaurants and its info to the page's accordion
-        for (var x = 0; x < y; x++) {
-          displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
-            "</div><div class='collapsible-body'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
-            restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
-            "</div></li>");
-          //array.each x=0 xx++
-           // append <img src=[x]>
-        }
+        // for (var x = 0; x < restaurantsSorted.length; x++) {
+        //   displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
+        //     "</div><div class='collapsible-body' id='"+ restaurantList[x]+ "'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
+        //     restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
+        //     "</div></li>");
+        //   //array.each x=0 xx++
+        //    // append <img src=[x]>
+        // }
   // *End of loop two*
       }
     });
   }// getFoursquare
+
+//instagram Picture ajax call function
+
+
+  function instagramPics(restaurant, hashtag){
+   // console.log("hit");
+            $.ajax({
+              method: "GET",
+              dataType: "jsonp",
+              url: "https://api.instagram.com/v1/tags/"+hashtag+
+              "/media/recent?access_token=" + igAccessToken,
+              success: function(instaData){
+                // for (var i = 0; i < 6; i++) {
+                //   if(instaData["data"][i]["images"]["standard_resolution"]["url"] === false){
+                //   }else{
+                  console.log("hit")
+                    var instagramPic = instaData["data"][0]["images"]["standard_resolution"]["url"];
+                    var instagramPic2 = instaData["data"][1]["images"]["standard_resolution"]["url"];
+
+
+                    //addPicture(instagramPic)
+                      displayData.append("<li><div class='collapsible-header'>"+restaurant["name"] +
+                        "</div><div class='collapsible-body'>Address: "+restaurant["address"][0] + "<br />" +
+                        restaurant["address"][1]+"<br />" + "Phone: " + restaurant["phone"]+ "<br /> Hashtag: #"+ hashtag +"<br /> <img src='" + instagramPic +
+                        "'><br /><img src='"+instagramPic2+"'></div></li>");
+          //array.each x=0 xx++
+           // append <img src=[x]>
+
+
+                    // debugger
+                  //}
+                //}
+              }
+            });
+  }
+
 
 
 
@@ -148,8 +173,6 @@ $(document).ready(function() {
   buttonZS.click(function() {
     displayData.empty();                        // Clears the restaurants list
     zipCode = formZipCode.val();                // The user's zip code
-    locationTitle.empty();
-    locationTitle.append("<h5 id='location-title'><em><b>Restaurants around "+zipCode+" with Buzz</b></em></h5>");
 
     if (zipCode != "") {                        // If the above's not empty
       $.ajax({                                  // Initial call to Google Maps
@@ -165,11 +188,4 @@ $(document).ready(function() {
       });
     }
   });
-
-//trying to fix bug. clicking on main logo does not re-render page
-  buzzbitesLogo.click(function(){
-    navigator.geolocation.getCurrentPosition(showPosition);
-  })
-
 });
-
