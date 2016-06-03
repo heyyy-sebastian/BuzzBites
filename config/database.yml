@@ -83,3 +83,6 @@ production:
   database: BuzzBites_production
   username: BuzzBites
   password: <%= ENV['BUZZBITES_DATABASE_PASSWORD'] %>
+  openshift_db_host: ENV["OPENSHIFT_DB_HOST"] %>
+  openshift_db_username: ENV["OPENSHIFT_DB_USERNAME"] %>
+  openshift_db_password: ENV["OPENSHIFT_DB_PASSWORD"] %>

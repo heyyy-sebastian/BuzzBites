@@ -10,20 +10,6 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
-# GOOGLEMAPS_API_KEY: AIzaSyDPMSlU4RW9QMz8ceTsBbBevwtLJvOLDAQ
-# FOURSQUARE_CLIENT_ID: DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM
-# FOURSQUARE_CLIENT_SECRET: QAGQMVLDNOVVX1TWVPAITBD3MYHPBT1XKMXV1KDHCWBHABGZ
-# GMAILEMAIL: "foodiefaddies@gmail.com"
-# GMAILPW: "1buzz2bites"
-
-# production:
-#   GOOGLEMAPS_API_KEY: AIzaSyDPMSlU4RW9QMz8ceTsBbBevwtLJvOLDAQ
-#   FOURSQUARE_CLIENT_ID: DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM
-#   FOURSQUARE_CLIENT_SECRET: QAGQMVLDNOVVX1TWVPAITBD3MYHPBT1XKMXV1KDHCWBHABGZ
-#   GMAILEMAIL: "foodiefaddies@gmail.com"
-#   GMAILPW: "1buzz2bites"
-
-
 
 googlemaps_api_key: AIzaSyDPMSlU4RW9QMz8ceTsBbBevwtLJvOLDAQ
 
@@ -34,12 +20,6 @@ instagram_client_id: 58a56b645d8f4020bf5c5d098afe72e4
 foursquare_client_id: DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM
 foursquare_client_secret: QAGQMVLDNOVVX1TWVPAITBD3MYHPBT1XKMXV1KDHCWBHABGZ
 
-# twitter_consumer_key: YhxbEo1jszW3nCuW0mw1diF0S
-# twitter_consumer_secret: PfZlaahZVEdmcESXOURjhFyae5OdRR5AfIASBBkPynIVPN2d5u
-# twitter_access_token: 711923769821040640-vZhQZuBBulzKzHS8f6RrixKNP8w7TeM
-# twitter_access_token_secret: 3XkDFfDL6LJxA3DhljpO67lDYTrugOYfJ02vdU9heyKHl
-
-
 production:
   googlemaps_api_key: AIzaSyDPMSlU4RW9QMz8ceTsBbBevwtLJvOLDAQ
 
@@ -48,8 +28,3 @@ production:
   # instagram_client_secret: 5a0d06eb15944426957407d0b14d068b
   foursquare_client_id: DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM
   foursquare_client_secret: QAGQMVLDNOVVX1TWVPAITBD3MYHPBT1XKMXV1KDHCWBHABGZ
-
-  # twitter_consumer_key: YhxbEo1jszW3nCuW0mw1diF0S
-  # twitter_consumer_secret: PfZlaahZVEdmcESXOURjhFyae5OdRR5AfIASBBkPynIVPN2d5u
-  # twitter_access_token: 711923769821040640-vZhQZuBBulzKzHS8f6RrixKNP8w7TeM
-  # twitter_access_token_secret: 3XkDFfDL6LJxA3DhljpO67lDYTrugOYfJ02vdU9heyKHl
