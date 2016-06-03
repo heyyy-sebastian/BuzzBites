@@ -27,6 +27,13 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+<<<<<<< HEAD
+=======
+  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
+  # yet still be able to expire them through the digest params.
+  config.assets.digest = true
+
+>>>>>>> 68e4be344c54cc71323c27c8e24ad6a693b94254
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
@@ -34,4 +41,16 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+<<<<<<< HEAD
+=======
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :user_name => ENV["gmail_email"],
+    :password => ENV["gmail_pw"],
+    :authentication => "plain",
+    :enable_starttls_auto => true
+  }
+>>>>>>> 68e4be344c54cc71323c27c8e24ad6a693b94254
 end

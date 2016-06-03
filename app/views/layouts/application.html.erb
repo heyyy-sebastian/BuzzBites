@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,5 +11,81 @@
 
 <%= yield %>
 
+=======
+<% # //= depend_on_asset "bg_image2.jpg" %>
+<% # //= depend_on_asset "bg_image3.jpg" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BuzzBites</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <%= csrf_meta_tags %>
+</head>
+<body class="orange lighten-5">
+  <nav class="orange">
+    <div class="navbar-wrapper container">
+      <a href="#" class="brand-logo">BuzzBites</a>
+      <ul class="right hide-on-small-only">
+
+        <li id="signUpClick"><a>Sign Up</a></li>
+        <% if session[:user_id] %><!--<li id="logoutClick"><a>Log Out</a></li>-->
+        <%= link_to "Log Out", welcome_logout_path, method: "destroy" %>
+        <% else %> <li id="loginClick"><a>Log In</a></li>
+        <% end %>
+
+      </ul>
+      <!-- <div id="navlinkDivCenter"> -->
+        <ul id="mobile-navlink" class="hide-on-med-and-up">
+          <li id="signUpClick"><a>Sign Up</a></li>
+          <% if session["id"] %><li id="logoutClick"><a>Log Out</a></li>
+          <% else %> <li id="loginClick"><a>Log In</a></li>
+          <% end %>
+        </ul>
+      <!-- </div> -->
+    </div>
+  </nav>
+  <div class="parallax-container">
+    <div class="parallax"><img src="/assets/bg_image2.jpg"></div>
+  </div>
+
+<%= yield %>
+
+  <div class="parallax-container">
+    <div class="parallax"><img src="/assets/bg_image3.jpg"></div>
+  </div>
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col s6">
+          <h5 class="white-text">About this site</h5>
+          <p class="white-text">Want to eat what everyone else is eating? See what everyone else is posting? Let BuzzBites guide you to your next stop!</p>
+        </div>
+        <div class="col s3 offset-s3">
+          <ul class="white-text">
+            <li class="footer-list" id="scroll-top"><a>Top</a></li>
+            <li class="footer-list" id="signUpClick"><a>Sign Up</a></li>
+            <% if session[:user_id] %><!--<li id="logoutClick"><a>Log Out</a></li>-->
+            <%= link_to "Log Out", welcome_logout_path, method: "destroy" %>
+            <% else %> <li class="footer-list" id="loginClick"><a>Log In</a></li>
+            <% end %>
+
+            <!-- <li class="footer-list" id="loginClick">Log In</li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        Copyright &copy; 2016 BuzzBites<br>
+        Mekesia Brown | Reggie Kim | Victor Lin | David Patuwo
+      </div>
+    </div>
+  </footer>
+
+>>>>>>> 68e4be344c54cc71323c27c8e24ad6a693b94254
 </body>
 </html>

@@ -1,0 +1,49 @@
+<div id="userSignUp">
+  <br><br>
+  <%= form_for @user, method: 'post', url: {action: "create"} do |f| %>
+    <% if @user.errors.any? %>
+      <div>
+        <h2>Your info is invalid</h2>
+        <ul>
+          <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.label(:name) %>
+    <%= f.text_field :name %>
+    <%= f.label(:email) %>
+    <%= f.text_field :email %>
+    <%= f.label(:username) %>
+    <%= f.text_field :username %>
+    <%= f.label(:password) %>
+    <%= f.password_field :password %>
+    <%= f.label(:password_confirmation) %>
+    <%= f.password_field :password_confirmation %>
+    <br><br>
+    <%= f.submit "Sign up" %>
+  <% end %>
+</div>
+
+<div id="userLogin">
+  <br><br>
+  <%= form_for @user, method: 'put', url: {action: "update"} do |f| %>
+    <% if @user.errors.any? %>
+      <div>
+        <h2>Your info is invalid</h2>
+        <ul>
+          <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= f.label(:username) %>
+    <%= f.text_field :username %>
+    <%= f.label(:password) %>
+    <%= f.password_field :password %>
+    <br><br>
+    <%= f.submit "Log in" %>
+  <% end %>
+</div>
