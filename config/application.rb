@@ -6,11 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-<<<<<<< HEAD
-module Rails4Example
-=======
 module BuzzBites
->>>>>>> 68e4be344c54cc71323c27c8e24ad6a693b94254
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -23,11 +19,8 @@ module BuzzBites
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-<<<<<<< HEAD
-=======
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
->>>>>>> 68e4be344c54cc71323c27c8e24ad6a693b94254
   end
 end

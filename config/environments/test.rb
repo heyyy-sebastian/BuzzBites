@@ -12,13 +12,8 @@ Rails.application.configure do
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = false
 
-<<<<<<< HEAD
-  # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets  = true
-=======
   # Configure static file server for tests with Cache-Control for performance.
   config.serve_static_files   = true
->>>>>>> 68e4be344c54cc71323c27c8e24ad6a693b94254
   config.static_cache_control = 'public, max-age=3600'
 
   # Show full error reports and disable caching.
@@ -36,19 +31,14 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-<<<<<<< HEAD
-=======
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
 
->>>>>>> 68e4be344c54cc71323c27c8e24ad6a693b94254
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-<<<<<<< HEAD
-=======
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
@@ -59,5 +49,4 @@ Rails.application.configure do
     :authentication => "plain",
     :enable_starttls_auto => true
   }
->>>>>>> 68e4be344c54cc71323c27c8e24ad6a693b94254
 end
