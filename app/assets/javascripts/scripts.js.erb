@@ -25,12 +25,10 @@ $(document).ready(function() {
   var myLatitude = "", myLongitude = "", lat_lot = "";
 
 //API keys
-  var mapsApi = "AIzaSyDPMSlU4RW9QMz8ceTsBbBevwtLJvOLDAQ";
-  var client_id = "DL1EJBH4FLH1TMS1CVCW2YIYNYQZLZFSNRFYGHAOUG01GMVM";
-  var client_secret = "QAGQMVLDNOVVX1TWVPAITBD3MYHPBT1XKMXV1KDHCWBHABGZ";
-  var igAccessToken = "3253350930.1677ed0.1c8fa22e002d42ce851bf297819fa775";
-
-  console.log("maps api key:" + mapsApi);
+  var mapsApi = "<%= ENV[GOOGLEMAPS_API_KEY] %>";
+  var client_id = "<%= ENV[FOURSQUARE_CLIENT_ID] %>";
+  var client_secret = "<%= ENV[FOURSQUARE_CLIENT_SECRET] %>";
+  var igAccessToken = "<%= ENV[INSTAGRAM_ACCESS_TOKEN] %>";
 
 
 // Probably used by Materialize for some sort of animation on the page
