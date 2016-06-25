@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+gem 'geocoder'
+gem 'foursquare2'
+gem 'yelp', require: 'yelp'
+
 gem 'figaro'
 gem 'twitter'
 gem 'oauth'

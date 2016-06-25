@@ -1,8 +1,25 @@
+require 'geocoder'
+require 'foursquare2'
+require 'yelp'
+
 class WelcomeController < ApplicationController
   include ApplicationHelper
 
   def index
     @user = User.new
+    # client = Yelp::Client.new({ consumer_key: ENV['YELP_CONSUMER_KEY'],
+    #                         consumer_secret: ENV['YELP_CONSUMER_SECRET'],
+    #                         token: ENV['YELP_TOKEN'],
+    #                         token_secret: ENV['YELP_TOKEN_SECRET']
+    #                       })
+    # params = { term: 'food', limit: 3, category_filter: 'discgolf' }
+
+    # locale = { lang: 'fr' }
+
+    # @response = client.search('San Francisco', params, locale)
+    # # byebug
+    # @response = @response.businesses[0].name
+    @response = Geocoder.search("44.981667,-93.27833")
   end
 
   def create

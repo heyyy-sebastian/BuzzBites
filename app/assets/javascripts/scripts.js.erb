@@ -25,11 +25,11 @@ $(document).ready(function() {
   var myLatitude = "", myLongitude = "", lat_lot = "";
 
 //API keys
-  var mapsApi = "<%= ENV[GOOGLEMAPS_API_KEY] %>";
-  var client_id = "<%= ENV[FOURSQUARE_CLIENT_ID] %>";
-  var client_secret = "<%= ENV[FOURSQUARE_CLIENT_SECRET] %>";
-  var igAccessToken = "<%= ENV[INSTAGRAM_ACCESS_TOKEN] %>";
-
+  var mapsApi = "<%= ENV['GOOGLEMAPS_API_KEY'] %>";
+  var client_id = "<%= ENV['FOURSQUARE_CLIENT_ID'] %>";
+  var client_secret = "<%= ENV['FOURSQUARE_CLIENT_SECRET'] %>";
+  // var igAccessToken = "<%= ENV['INSTAGRAM_ACCESS_TOKEN'] %>";
+  var igAccessToken = "3452968519.7d4b164.411f37549b704ca0b0d834dac57d09e6";
 
 // Probably used by Materialize for some sort of animation on the page
   $("#scroll-top").click(function() {
@@ -50,7 +50,6 @@ $(document).ready(function() {
 
 
   // This function finds the current location loaded from browser data
-
   var getLocation = function() {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
@@ -84,73 +83,38 @@ $(document).ready(function() {
                                       "address" : foursquare_data_venueAddress, "phone" : foursquare_data_venuePhone,
                                       "latlong" : foursquare_data_venueLatLong });
           }
-          else{
-            //console.log(results[x]["venue"]["name"]);
-          }
         }
 
   // *End of loop one* Sort the restaurants objects by check in amount
         restaurantsSorted.sort(function(a,b){return b.checkin - a.checkin});
-
         for (var x = 0; x < restaurantsSorted.length; x++) {
             var hashtag = restaurantsSorted[x]["name"].replace(/\W/g,'');
             instagramPics(restaurantsSorted[x], hashtag);
-          }
-          restaurantsSorted = [];
-
-
-  // *Start of loop two* Appending the restaurants and its info to the page's accordion
-        // for (var x = 0; x < restaurantsSorted.length; x++) {
-        //   displayData.append("<li><div class='collapsible-header'>"+restaurantsSorted[x]["name"] +
-        //     "</div><div class='collapsible-body' id='"+ restaurantList[x]+ "'>Address: "+restaurantsSorted[x]["address"][0] + "<br />" +
-        //     restaurantsSorted[x]["address"][1]+"<br />" + "Phone: " + restaurantsSorted[x]["phone"]+
-        //     "</div></li>");
-        //   //array.each x=0 xx++
-        //    // append <img src=[x]>
-        // }
-  // *End of loop two*
+        }
+        restaurantsSorted = [];
       }
     });
   }// getFoursquare
 
-//instagram Picture ajax call function
-
 
   function instagramPics(restaurant, hashtag){
-   // console.log("hit");
-            $.ajax({
-              method: "GET",
-              dataType: "jsonp",
-              url: "https://api.instagram.com/v1/tags/"+hashtag+
-              "/media/recent?access_token=" + igAccessToken,
-              success: function(instaData){
-                // for (var i = 0; i < 6; i++) {
-                //   if(instaData["data"][i]["images"]["standard_resolution"]["url"] === false){
-                //   }else{
-                    var instagramPic = instaData["data"][0]["images"]["standard_resolution"]["url"];
-                    var instagramPic2 = instaData["data"][1]["images"]["standard_resolution"]["url"];
+    $.ajax({
+      method: "GET",
+      dataType: "jsonp",
+      url: "https://api.instagram.com/v1/tags/"+hashtag+
+      "/media/recent?access_token=" + igAccessToken + "&scope=public_content",
+      success: function(instaData){
+        console.log(instaData);
+        var instagramPic = instaData["data"][0]["images"]["standard_resolution"]["url"];
+        var instagramPic2 = instaData["data"][1]["images"]["standard_resolution"]["url"];
 
-
-                    //addPicture(instagramPic)
-                      displayData.append("<li><div class='collapsible-header'>"+restaurant["name"] +
-                        "</div><div class='collapsible-body'>Address: "+restaurant["address"][0] + "<br />" +
-                        restaurant["address"][1]+"<br />" + "Phone: " + restaurant["phone"]+ "<br /> Hashtag: #"+ hashtag +"<br /> <img src='" + instagramPic +
-                        "'><br /><img src='"+instagramPic2+"'></div></li>");
-          //array.each x=0 xx++
-           // append <img src=[x]>
-
-
-                    // debugger
-                  //}
-                //}
-              }
-            });
+        displayData.append("<li><div class='collapsible-header'>"+restaurant["name"] +
+          "</div><div class='collapsible-body'>Address: "+restaurant["address"][0] + "<br />" +
+          restaurant["address"][1]+"<br />" + "Phone: " + restaurant["phone"]+ "<br /> Hashtag: #"+ hashtag +"<br /> <img src='" + instagramPic +
+          "'><br /><img src='"+instagramPic2+"'></div></li>");
+      }
+    });
   }
-
-
-
-
-
 
 // Default list of local trending restaurants (using the browser's geolocation)
   function showPosition(position) {
@@ -170,7 +134,6 @@ $(document).ready(function() {
     zipCode = formZipCode.val();                // The user's zip code
     locationTitle.empty();
     locationTitle.append("<h5 id='location-title'><em><b>Restaurants around "+zipCode+" with Buzz</b></em></h5>");
-
 
     if (zipCode != "") {                        // If the above's not empty
       $.ajax({                                  // Initial call to Google Maps
